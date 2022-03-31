@@ -1,14 +1,17 @@
 var express = require('express');
 var router = express.Router();
 import { getUsers, getUser, deleteUser, createUser, updateUser } from '../controller/users';
-import { validate, postValidator } from '../Validation/inputValidation';
+const  { validate } = require("../Validation/inputValidation")
+
 // var database = require('../database.json');
 
 /* GET users listing. */
 
 router.get('/', getUsers);
 
-router.post('/',  createUser);
+// router.post('/', validate, createUser);
+
+router.route('/').post(validate, createUser);
 
 router.get('/:id', getUser);
 

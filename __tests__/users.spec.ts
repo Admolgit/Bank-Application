@@ -1,20 +1,6 @@
 const request = require("supertest");
 import app from "../app";
 
-// interface Data {
-//     userId: string;
-//     organization: string,
-//     createdAt: string,
-//     updatedAt: string,
-//     products: string[],
-//     marketValue: string,
-//     address: string,
-//     ceo: string,
-//     country: string,
-//     noOfEmployees:number,
-//     employees:string[]
-// };
-
 const data = {
   userId: "a6982ca4-b83b-48a2-86f6-bef1350ac285",
   organization: "node ninja",
@@ -34,15 +20,15 @@ let userId: string;
 
 describe("Should respond with 200 when user is posted", () => {
 
-  it("POST /send", async () =>  {
-    const res = await request(app)
-      .post("/users")
-      .expect("Content-Type", /json/)
-      .send({
-        data,
-      })
-      expect(res.status).toBe(200)
-  });
+  // it("POST /send", async () =>  {
+  //   const res = await request(app)
+  //     .post("/users")
+  //     .expect("Content-Type", /json/)
+  //     .send({
+  //       validate(data: any)
+  //     });
+  //     expect(res.status).toBe(200)
+  // });
 
   it("should return 404 status code", async () => {
     const res = await request(app).post("/").send(data);
@@ -73,7 +59,6 @@ describe("Should return 200 for users found", () => {
 describe("GET /:id", () => {
 
     it("should return an 404 status for item not found", async () => {
-        // const userId = "a6982ca4-b83b-48a2-86f6-bef1350ac285";
         const res = await request(app).get(`/${userId}`);
         expect(res.status).toBe(404);
     });
@@ -83,7 +68,6 @@ describe("GET /:id", () => {
 describe("PUT /", () => {
 
   it("should return an 404 status for item not found", async () => {
-      // const userId = "a6982ca4-b83b-48a2-86f6-bef1350ac285";
       const res = await request(app).put(`/${userId}`);
       expect(res.status).toBe(404);
   });
@@ -93,12 +77,11 @@ describe("PUT /", () => {
 describe("DELETE /", () => {
 
     it("should return an 404 status for item not found", async () => {
-        // const userId = "a6982ca4-b83b-48a2-86f6-bef1350ac285";
         const res = await request(app).delete(`/${userId}`);
         expect(res.status).toBe(404);
     });
 
-    it("DELETE /user/:id", async () => {
+    it("DELETE /users/:id", async () => {
       const res = await request(app).delete(`/users/${userId}`)
         delete(res.data)
         expect(res.status).toBe(200);

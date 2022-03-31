@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { NextFunction, Request, Response } from 'express';
 import fs from 'fs';
+const  { validateUser } = require("../Validation/inputValidation")
 
 uuidv4();
 
@@ -34,7 +35,7 @@ interface Users {
 export const getUser = (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
 
-  database.forEach((item: any | { [x: string]: string; }, index: string | number) => {
+  database.forEach((item: { [x: string]: string; }, index: string | number) => {
     if(item['userId'] == id){
       res.send(item)
     }
@@ -51,7 +52,16 @@ export const getUsers = (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
-export const createUser = (req: { body: any; }, res: { setHeader: (arg0: string, arg1: string) => void; send: (arg0: any) => void; }, next: string) => {
+export const createUser = (req: Request, res: Response, next: NextFunction) => {
+
+  // const inValid = validateUser(req);
+  // if(!inValid) {
+  //   return res.status(400).json({
+  //     success: false,
+  //     error: "Error"
+  //   });
+  // }
+
   let body = req.body;
   let id = uuidv4()
   let userWithId = { userId: id, ...body };
@@ -64,7 +74,7 @@ export const createUser = (req: { body: any; }, res: { setHeader: (arg0: string,
   res.send(userWithId);
 }
 
-export const updateUser = (req: { params: { id: string; }; body: any; }, res: { send: (arg0: string) => void; }, next: string) => {
+export const updateUser = (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
 
   let updated: Users = req.body;
@@ -95,7 +105,7 @@ export const updateUser = (req: { params: { id: string; }; body: any; }, res: { 
   res.send(JSON.stringify(detailsData, null, 2));
 }
 
-export const deleteUser = (req: { params: { id: string; }; }, res: { send: (arg0: string) => void; }, next: any) => {
+export const deleteUser = (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.params;
   
   database.forEach((item: string[] | any, index: number) => {
