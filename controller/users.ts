@@ -54,14 +54,6 @@ export const getUsers = (req: Request, res: Response, next: NextFunction) => {
 
 export const createUser = (req: Request, res: Response, next: NextFunction) => {
 
-  // const inValid = validateUser(req);
-  // if(!inValid) {
-  //   return res.status(400).json({
-  //     success: false,
-  //     error: "Error"
-  //   });
-  // }
-
   let body = req.body;
   let id = uuidv4()
   let userWithId = { userId: id, ...body };

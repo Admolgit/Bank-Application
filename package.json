@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "tsc && node ./bin/www",
+    "dev": "node api.js && tsc && node ./bin/www",
     "type": "module",
-    "start": "yarn tsc && node lib/app.js",
+    "start": "node api.js && yarn tsc && node lib/app.js",
     "test": "jest"
   },
   "dependencies": {
